@@ -4,20 +4,39 @@ import time
 
 
 def process_dummy_example():
-	f = open("output.txt", "w")
+    f = open("output.txt", "w")
 
-	i = 0
+    i = 0
 
-	while i < 100000000:
-		f.write('{}\n'.format(i))
-		i = i + 1
+    while i < 10000000:
+        f.write('{}\n'.format(i))
+        i = i + 1
 
-	f.close()
+    f.close()
 
 
-m_process = multiprocessing.Process(target=process_dummy_example)
-m_process.start()
+process_m = multiprocessing.Process(target=process_dummy_example)
+process_m.start()
 
-print('pid {}'.format(m_process.pid))
+pid = process_m.pid
 
-m_process.join()
+print('Process - pid {}, Run 5s'.format(pid))
+
+# using http://pythonhosted.org/psutil/#processes
+process_p = psutil.Process(pid=pid)
+
+time.sleep(5)
+
+print(' Suspend/Pause - {}, Wait for 20s'.format(time.strftime("%X")))
+process_p.suspend()
+
+time.sleep(20)
+
+print(' Resume - {}, Run for 20s'.format(time.strftime("%X")))
+process_p.resume()
+
+time.sleep(20)
+
+print(' Terminate - {}'.format(time.strftime("%X")))
+process_m.terminate()
+process_m.join()
