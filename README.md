@@ -1,6 +1,6 @@
 #Python process control for PyWPS
 
-This code is supposed to demonstrate the ability to create, pause/suspend, resume and kill/terminate processes by Python.
+This code is supposed to demonstrate the ability to create, pause/suspend, resume and kill/terminate processes by Python. It uses a combination of multiprocessing and psutil (http://pythonhosted.org/psutil/#processes) library.
 
 The program (file *main.py*) runs simple process of writing lines of numbers into file *output.txt* (lines of *main.py* 6-12). During short time intervals, the program pause the process printing numbers into the file for 20 seconds (lines 36-38 in *main.py*). After 20 seconds process continues to printing lines into the file for next 20 seconds, then is forced to terminate (lines 36-42).  
 
