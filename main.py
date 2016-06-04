@@ -1,6 +1,7 @@
 import multiprocessing
 import psutil
 import time
+import sys
 
 
 def process_dummy_example(f):
@@ -23,7 +24,16 @@ if __name__ == '__main__':
 	print('Process - pid {}, Run for 5s'.format(pid))
 
 	# using http://pythonhosted.org/psutil/#processes
-	process_p = psutil.Process(pid=pid)
+	try:
+		process_p = psutil.Process(pid=pid)
+
+	except psutil.NoSuchProcess:
+		print("Error: No such process with {}".format(pid))
+		
+		process_m.terminate()
+		process_m.join()
+
+		sys.exit()
 
 	time.sleep(5)
 
