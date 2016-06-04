@@ -28,12 +28,27 @@ if __name__ == '__main__':
 		process_p = psutil.Process(pid=pid)
 
 	except psutil.NoSuchProcess:
+		#no process with this pid
 		print("Error: No such process with {}".format(pid))
 		
 		process_m.terminate()
 		process_m.join()
 
 		sys.exit()
+
+	except psutil.ZombieProcess:
+		print("Error: Zombie process")
+
+		process_m.terminate()
+		process_m.join()
+
+		sys.exit()
+
+	except psutil.AccessDenied:
+		print("Error: Access denied")
+
+		process_m.terminate()
+		process_m.join()
 
 	time.sleep(5)
 
