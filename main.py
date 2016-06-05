@@ -50,6 +50,8 @@ if __name__ == '__main__':
 		process_m.terminate()
 		process_m.join()
 
+		sys.exit()
+
 	time.sleep(5)
 
 	print(' Suspend/Pause - {}, Wait for 20s'.format(time.strftime("%X")))
